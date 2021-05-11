@@ -7,20 +7,20 @@
 
 ### 1.1 Prerequisites
 
-    ```
-    $ gcloud init
-    $ gcloud components install kubectl
-    $ gcloud auth application-default login
-    $ gcloud config set compute/zone asia-south1-a
-    ```
-
+```shell
+$ gcloud init
+$ gcloud components install kubectl
+$ gcloud auth application-default login
+$ gcloud config set compute/zone asia-south1-a
+```
+ 
 **Note:** To specify an alternative zone to deploy to, in the above command, you can first view the list of available zones by running the command: `$ gcloud compute zones list`
 
 ### 1.2 Main Deployment Steps 
 
 1. To create a Kubernetes cluster, create the required disk storage (and associated PersistentVolumes), and deploy the MongoDB Service (including the StatefulSet running "mongod" containers), via a command-line terminal/shell (ensure the script files are set to be executable):
 
-    ```
+    ```shell
     $ cd scripts
     $ ./init.sh
     ```
@@ -30,7 +30,7 @@
 (2) create a MongoDB admin user (specify the password you want as the argument to the script, replacing 'abc123').
 (3) Create an internal load balancer to and assign a static IP to access outside the cluster.
 
-    ```
+    ```shell
     $ ./configure_repset_loadbalancer.sh abc123
     ```
 
