@@ -1,7 +1,7 @@
 # MongoDB DevOps
  Bash Scripts and YAML files for running Mongodb on k8s GCP
 
-# MongoDB Deployment Demo for Kubernetes on GKE
+# MongoDB Deployment for Kubernetes on GKE
 
 ## 1 How To Run
 
@@ -25,7 +25,10 @@
     $ ./init.sh
     ```
 
-2. Execute the following script which connects to the first Mongod instance running in a container of the Kubernetes StatefulSet, via the Mongo Shell, to (1) initialise the MongoDB Replica Set, and (2) create a MongoDB admin user (specify the password you want as the argument to the script, replacing 'abc123').
+2. Execute the following script which connects to the first Mongod instance running in a container of the Kubernetes StatefulSet, via the Mongo Shell, to 
+(1) initialise the MongoDB Replica Set, and 
+(2) create a MongoDB admin user (specify the password you want as the argument to the script, replacing 'abc123').
+(3) Create an internal load balancer to and assign a static IP to access outside the cluster.
 
     ```
     $ ./configure_repset_loadbalancer.sh abc123
