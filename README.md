@@ -1,4 +1,4 @@
-# MongoDB DevOps
+# MongoDB Deployment
  Bash Scripts and YAML files for running Mongodb on k8s GCP
 
 # MongoDB Deployment for Kubernetes on GKE
