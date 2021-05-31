@@ -1,10 +1,13 @@
 kind: DaemonSet
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 metadata:
   name: hostvm-configurer
   labels:
     app: startup-script
 spec:
+  selector:
+    matchLabels:
+      app: startup-script
   template:
     metadata:
       labels:

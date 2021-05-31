@@ -1,7 +1,7 @@
 kind: StorageClass
-apiVersion: storage.k8s.io/v1beta1
+apiVersion: storage.k8s.io/v1
 metadata:
-  name: storage_mongo
+  name: storage-mongo
 provisioner: kubernetes.io/gce-pd
 parameters:
   type: pd-ssd

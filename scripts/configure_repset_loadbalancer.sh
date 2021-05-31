@@ -4,7 +4,7 @@
 # Kubernetes StatefulSet, via the Mongo Shell, to initalise a MongoDB Replica
 # Set and create a MongoDB admin user.
 #
-# IMPORTANT: Only run this once all 3 StatefulSet mongod pods are shown with
+# IMPORTANT: Only run this once all 2 StatefulSet mongod pods are shown with
 # status running (to see pod status run: $ kubectl get all)
 ##
 

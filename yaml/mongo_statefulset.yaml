@@ -1,8 +1,12 @@
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mongo
 spec:
+  selector:
+      matchLabels:
+        app: mongodb
+        role: mongo
   serviceName: mongodb-service
   replicas: 2
   template:
@@ -10,9 +14,19 @@ spec:
       labels:
         app: mongodb
         role: mongo
-        environment: production
-        replicaset: MainRepSet
     spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: replicaset
+                  operator: In
+                  values:
+                  - MainRepSet
+              topologyKey: kubernetes.io/hostname
       terminationGracePeriodSeconds: 10
       volumes:
         - name: secrets-volume
@@ -20,15 +34,18 @@ spec:
             secretName: shared-bootstrap-data
             defaultMode: 256
       containers:
-        - name: mongo-container
+        - name: mongod-container
           image: mongo
           command:
+            - "numactl"
+            - "--interleave=all"
             - "mongod"
+            - "--wiredTigerCacheSizeGB"
+            - "0.25"
             - "--bind_ip"
             - "0.0.0.0"
             - "--replSet"
             - "MainRepSet"
-            - "--interleave=all"
             - "--auth"
             - "--clusterAuthMode"
             - "keyFile"
@@ -48,9 +65,10 @@ spec:
   - metadata:
       name: mongodb-persistent-storage-claim
       annotations:
-        volume.beta.kubernetes.io/storage-class: "storage_mongo"
+        volume.beta.kubernetes.io/storage-class: "storage-mongo"
     spec:
       accessModes: [ "ReadWriteOnce" ]
+      storageClassName: storage-mongo
       resources:
         requests:
           storage: 10Gi
