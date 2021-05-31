@@ -18,12 +18,12 @@ fi
 
 # Initiate MongoDB Replica Set configuration
 echo "Configuring the MongoDB Replica Set"
-kubectl exec mongod-0 -c mongod-container -- mongo --eval 'rs.initiate({_id: "MainRepSet", version: 1, members: [ {_id: 0, host: "mongod-0.mongodb-service.default.svc.cluster.local:27017"}, {_id: 1, host: "mongod-1.mongodb-service.default.svc.cluster.local:27017"}, {_id: 2, host: "mongod-2.mongodb-service.default.svc.cluster.local:27017"} ]});'
+kubectl exec mongo-0 -c mongod-container -- mongo --eval 'rs.initiate({_id: "MainRepSet", version: 1, members: [ {_id: 0, host: "mongo-0.mongodb-service.default.svc.cluster.local:27017"}, {_id: 1, host: "mongo-1.mongodb-service.default.svc.cluster.local:27017"}]});'
 echo
 
 # Wait for the MongoDB Replica Set to have a primary ready
 echo "Waiting for the MongoDB Replica Set to initialise..."
-kubectl exec mongod-0 -c mongod-container -- mongo --eval 'while (rs.status().hasOwnProperty("myState") && rs.status().myState != 1) { print("."); sleep(1000); };'
+kubectl exec mongo-0 -c mongod-container -- mongo --eval 'while (rs.status().hasOwnProperty("myState") && rs.status().myState != 1) { print("."); sleep(1000); };'
 sleep 2
 sleep 20
 echo "...initialisation of MongoDB Replica Set completed"
@@ -31,7 +31,7 @@ echo
 
 # Create the admin user (this will automatically disable the localhost exception)
 echo "Creating user: 'main_admin'"
-kubectl exec mongod-0 -c mongod-container -- mongo --eval 'db.getSiblingDB("admin").createUser({user:"main_admin",pwd:"'"${1}"'",roles:[{role:"root",db:"admin"}]});'
+kubectl exec mongo-0 -c mongod-container -- mongo --eval 'db.getSiblingDB("admin").createUser({user:"main_admin",pwd:"'"${1}"'",roles:[{role:"root",db:"admin"}]});'
 echo
 
 echo "Creating Internal Load Balancer for Mongodb"
