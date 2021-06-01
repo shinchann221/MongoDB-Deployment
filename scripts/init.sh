@@ -1,4 +1,4 @@
-#gcloud container clusters create "mongodb-cluster" --machine-type=e2-micro --num-nodes=2
+gcloud container clusters create "mongodb-cluster" --machine-type=e2-micro --num-nodes=2
 #kubectl apply -f ../yaml/daemonset-configurer.yaml
 
 # Define storage class for dynamically generated persistent volumes
