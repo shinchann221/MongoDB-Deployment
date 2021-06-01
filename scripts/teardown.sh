@@ -7,7 +7,7 @@
 kubectl delete statefulsets mongo
 kubectl delete services mongodb-service
 kubectl delete secret shared-bootstrap-data
-kubectl delete daemonset hostvm-configurer
+#kubectl delete daemonset hostvm-configurer
 sleep 3
 
 # Delete persistent volume claims

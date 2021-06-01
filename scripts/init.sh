@@ -1,4 +1,4 @@
-gcloud container clusters create "mongodb-cluster" --machine-type=e2-micro --num-nodes=2
+gcloud container clusters create "mongodb-cluster" --machine-type=e2-micro --num-nodes=2 --zone=asia-south1-a --network=ilb-network --subnetwork=internal-subnet
 #kubectl apply -f ../yaml/daemonset-configurer.yaml
 
 # Define storage class for dynamically generated persistent volumes
@@ -43,7 +43,7 @@ kubectl apply -f ../yaml/mongo_statefulset.yaml
 echo "Waiting for the 2 containers to come up (`date`)..."
 sleep 20
 echo -n "  "
-until kubectl --v=0 exec mongo-0 -c mongod-container -- mongo --quiet --eval 'db.getMongo()'; do
+until kubectl --v=0 exec mongo-1 -c mongod-container -- mongo --quiet --eval 'db.getMongo()'; do
     sleep 5
     echo -n "  "
 done
