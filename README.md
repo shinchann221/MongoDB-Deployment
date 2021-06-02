@@ -3,6 +3,9 @@
 
 # MongoDB Deployment for Kubernetes on GKE
 
+Note: Custom VPC Network and subnet is used in this deployment.
+Change init.sh to comply with your deployment environment 
+
 ## 1 How To Run
 
 ### 1.1 Prerequisites
@@ -31,7 +34,7 @@ $ gcloud config set compute/zone asia-south1-a
 (3) Create an internal load balancer to and assign a static IP to access outside the cluster.
 
     ```shell
-    $ ./configure_repset_loadbalancer.sh abc123
+    $ ./configure-repset-ilb.sh abc123
     ```
 
 You should now have a MongoDB Replica Set initialised, secured and running in a Kubernetes Stateful Set. You can view the list of Pods that contain these MongoDB resources, by running the following:
