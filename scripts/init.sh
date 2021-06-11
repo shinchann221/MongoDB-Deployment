@@ -2,8 +2,16 @@
 ##
 #Script to deploy mongo db stateful set with persistent storage
 ##
-gcloud container clusters create "mongodb-cluster" --machine-type=e2-micro --num-nodes=2 --zone=asia-south1-a --network=ilb-network --subnetwork=internal-subnet
-#kubectl apply -f ../yaml/daemonset-configurer.yaml
+gcloud container clusters create "mongodb-cluster" \
+        --machine-type=e2-micro \
+        --num-nodes=2 \
+        --zone=asia-south1-a \
+        --network=db-internal \
+        --subnetwork=india-default \
+
+
+
+kubectl apply -f ../yaml/daemonset-configurer.yaml
 
 # Define storage class for dynamically generated persistent volumes
 kubectl apply -f ../yaml/storageclass-ssd.yaml

@@ -52,7 +52,7 @@ spec:
             - "--keyFile"
             - "/etc/secrets-volume/internal-auth-mongodb-keyfile"
             - "--setParameter"
-            - "authenticationMechanisms=SCRAM-SHA-1,MONGODB-X509"
+            - "authenticationMechanisms=SCRAM-SHA-1"
           ports:
             - containerPort: 27017
           volumeMounts:
